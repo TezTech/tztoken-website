@@ -1,0 +1,248 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>tztoken Generation Script</title>
+    <meta property="og:title" content="tztoken - token smart contract utility took" />
+    <meta property="og:description" content="tztoken brings tokenization to tezos in an easy and simple way" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <div class="container">
+        <div class="row justify-content-md-center">
+        <div class="col-md-10 text-center heroTitle">
+            <h2>ꜩtoken</h2>
+            <p>Create, manage and read all about my implementation of the<br /> ERC20 token contract for Tezos - the ꜩtoken</p>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-md-12">
+        
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item"><a id="play-tab" data-toggle="tab" class="nav-link active" href="#play" role="tab" aria-controls="play" aria-expanded="true">Create</a></li>
+          <li class="nav-item"><a id="manage-tab" data-toggle="tab" class="nav-link" href="#manage" role="tab" aria-controls="manage">Observe</a></li>
+          <li class="nav-item"><a id="manage-tab" data-toggle="tab" class="nav-link" href="#transfer" role="tab" aria-controls="transfer">Transfer</a></li>
+          <li class="nav-item"><a id="smart-tab" data-toggle="tab" class="nav-link" href="#smart" role="tab" aria-controls="smart">Smart Contract</a></li>
+          <li class="nav-item"><a id="about-tab" data-toggle="tab" class="nav-link" href="#about" role="tab" aria-controls="about">About</a></li>
+        </ul>
+        <div class="tab-content">
+          <div id="play" aria-labelledby="play-tab" class="tab-pane fade show active" role="tabpanel">
+            <div class="row justify-content-md-center">
+            <div class="col-md-12 text-center">
+                    <form>
+              <div class="row justify-content-md-center">
+                <div class="col-md-6 text-center">
+                    <h3>Create your token</h3>
+                    <p>To create your token, you will need to run the transactions manually from your tezos-node. In future, we will look to integrate this process directly into this website.</p>
+                    <div class="row justify-content-md-center">
+                      <div class="col-md-6 text-center">
+                            <div class="form-group">
+                              <label>Name of your Token</label>
+                              <input style="text-align: center;" required type="text" class="form-control" value="" id="name" placeholder="e.g. Tezos Test Tokens">
+                            </div>
+                            <div class="form-group">
+                              <label>Symbol of your Token</label>
+                              <input style="text-align: center;" required type="text" class="form-control" value="" id="symbol" placeholder="e.g. TTT">
+                            </div>
+                      </div>
+                      <div class="col-md-6 text-center">
+                            <div class="form-group">
+                              <label>Decimal Places</label>
+                              <input style="text-align: center;" required type="text" class="form-control" value="2" id="decimals" placeholder="Decimal places">
+                            </div>
+                      <div class="form-group">
+                              <label>Total Supply</label>
+                              <input style="text-align: center;" required type="text" class="form-control" value="100000" id="totalsupply" placeholder="Total supply">
+                            </div>
+                      </div>
+                      <div class="col-md-12 text-center">
+                      <div class="form-group">
+                        <label>Owner key (this key will hold the initial supply)</label>
+                        <input style="text-align: center;" required type="text" class="form-control" value="" id="tz" placeholder="Your tz* address">
+                      </div>
+                      </div>
+                    </div>
+                      
+                </div>
+                <div class="col-md-6 text-center">
+                    <h3>Contract Code</h3>
+                    <pre id="compiled">Complete the output above to generate your token origination code here</pre>
+                </div>
+              </div>
+              <button type="submit" id="generate" class="btn btn-primary">Generate</button>
+              &nbsp;&nbsp;&nbsp;<button type="submit" id="copy" style="display:none;" class="btn btn-success">Copy Command</button>
+                    </form>
+            </div>
+          </div>
+          </div>
+          <div id="manage" aria-labelledby="manage-tab" class="tab-pane fade show text-center" role="tabpanel">
+                <h3>Manage your tokens</h3>
+                <p>Enter your token contract address below, and we will attempt to pull down the token data and the current holders/balances.</p>
+                <div class="row justify-content-md-center">
+                  <div class="col-md-4 text-center">
+                    <form>
+                        <div class="form-group">
+                          <label>Token Contract</label>
+                          <input style="text-align: center;" required type="text" class="form-control" value="" id="contract" placeholder="e.g. KT1LpHUA6hTK9yHeUpyTAdwoiezkpHicUDdH">
+                        </div>
+                        <button type="submit" id="observe" class="btn btn-primary">Refresh</button>
+                    </form>
+                  </div>
+                  <div class="col-md-8 text-center">
+                    <div id="tokenDtails" style="display:none;">
+                      <div class="row justify-content-md-center">
+                        <div class="col-md-4 text-center">
+                          <strong>Token Name:</strong>
+                          <p><span id="dis_name">N/A</span></p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                          <strong>Symbol:</strong>
+                          <p><span id="dis_symbol">N/A</span></p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                          <strong>Decimals:</strong>
+                          <p><span id="dis_decimals">N/A</span></p>
+                        </div>
+                      </div>
+                      <table id="tokentable" style="width:100%;text-align:center;">
+                        <thead><th style="width: 50%;text-align:center;">Address</th><th style="width: 50%;text-align:center;">Balance</th></thead>
+                        <tbody>
+                          
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+          </div>
+          <div id="transfer" aria-labelledby="transfer-tab" class="tab-pane fade show" role="tabpanel">
+            <div class="row justify-content-md-center">
+              <div class="col-md-12 text-center">
+                      <form>
+                <div class="row justify-content-md-center">
+                  <div class="col-md-6 text-center">
+                      <h3>Transfer Tokens</h3>
+                      <p>To transfer tokens, enter your token address, who you are sending it to, who you are sending from, and how much. We will construct to command for you to enter into your node to complete the transfer.</p>
+                      <div class="row justify-content-md-center">
+                        <div class="col-md-6 text-center">
+                              <div class="form-group">
+                            <label>Token Contract</label>
+                            <input style="text-align: center;" required type="text" class="form-control" value="" id="trans_contract" placeholder="e.g. KT1LpHUA6hTK9yHeUpyTAdwoiezkpHicUDdH">
+                          </div>
+                          <div class="form-group">
+                            <label>Sending From</label>
+                            <input style="text-align: center;" required type="text" class="form-control" value="" id="trans_from" placeholder="From address">
+                          </div>
+                        </div>
+                        <div class="col-md-6 text-center">
+                              <div class="form-group">
+                            <label>Sending To</label>
+                            <input style="text-align: center;" required type="text" class="form-control" value="" id="trans_to" placeholder="To address">
+                          </div>
+                        <div class="form-group">
+                              <label>Amount to Send</label>
+                                <input style="text-align: center;" required type="text" class="form-control" value="1" id="trans_amt" placeholder="">
+                              </div>
+                        </div>
+                      </div>
+                        
+                  </div>
+                  <div class="col-md-6 text-center">
+                      <h3>Transfer Command</h3>
+                      <pre id="compiled3">Complete the output above to generate your token transfer code here</pre>
+                  </div>
+                </div>
+                <button type="submit" id="transfer" class="btn btn-primary">Transfer</button>
+                &nbsp;&nbsp;&nbsp;<button type="submit" id="copytransfer" style="display:none;" class="btn btn-success">Copy Command</button>
+                      </form>
+              </div>
+            </div>
+          </div>
+          <div id="smart" aria-labelledby="smart-tab" class="tab-pane fade show" role="tabpanel">
+            <div class="row justify-content-md-center">
+            <div class="col-md-12 text-center">
+              <p>The smart contract powering <strong>ꜩtoken</strong> has been written in <a href="https://fi-code.com" target="_blank">fi</a>, and compiled into valid Michelson code. Please view the source below.</p>
+            </div>
+            </div>
+            <div class="row">
+                    <div class="col-md-6">
+                        <div id="code">struct TokenData(
+	string name,
+	string symbol,
+	nat decimals
+);
+struct PassthroughData(
+	address from,
+	mutez amount,
+	bytes contractData
+);
+
+storage map[address=>mutez] balances;
+storage TokenData data;
+
+entry transfer(address to, mutez amount, ?bytes contractData){
+  assert(storage.balances.in(SENDER));
+  let mutez bal = storage.balances.get(SENDER);
+  assert(bal >= input.amount);
+  storage.balances.push(SENDER, sub(bal, input.amount));
+  
+  bal = mutez 0;
+  if (storage.balances.in(input.to)){
+    bal = storage.balances.get(input.to);
+  }
+  storage.balances.push(input.to, add(bal, input.amount));
+	
+  if (isset(input.contractData)){
+    transfer(input.to, mutez 0, new PassthroughData(SENDER, input.amount, to_some(input.contractData)));
+  }
+}
+</div>
+                    </div>
+                    <div class="col-md-6">
+                        <pre id="compiled2">parameter bytes;storage (pair (map address mutez) (pair string (pair string nat)));code{DUP;CDR;NIL operation;PAIR;SWAP;CAR;DUP;PUSH nat 4;PUSH nat 0;SLICE;IF_NONE{PUSH nat 100;FAILWITH}{};DUP;PUSH bytes 0x19308cc0;COMPARE;EQ;IF{DROP;DUP;SIZE;PUSH nat 4;SWAP;SUB;DUP;GT;IF{}{PUSH nat 102;FAILWITH};ABS;PUSH nat 4;SLICE;IF_NONE{PUSH nat 101;FAILWITH}{};UNPACK (pair address (pair mutez (option bytes)));IF_NONE{PUSH nat 103;FAILWITH}{};PAIR;NONE mutez;PAIR;SENDER;DIP{DUP;CDDDAR};MEM;DIP{PUSH bool True};COMPARE;EQ;IF{}{PUSH string "Failed assert";FAILWITH};SENDER;DIP{DUP;CDDDAR};GET;IF_NONE{PUSH string "Key not found in map";FAILWITH}{};SWAP;SET_CAR;DUP;CAR;DIP{DUP;CDADAR};COMPARE;GE;IF{}{PUSH string "Failed assert";FAILWITH};SENDER;DIP{DUP;CAR;DIP{DUP;CDADAR};SUB;SOME};DIIP{DUP;CDDDAR};UPDATE;SWAP;SET_CDDDAR;PUSH mutez 0;SWAP;SET_CAR;DUP;CDAAR;DIP{DUP;CDDDAR};MEM;DIP{PUSH bool True};COMPARE;EQ;IF{DUP;CDAAR;DIP{DUP;CDDDAR};GET;IF_NONE{PUSH string "Key not found in map";FAILWITH}{};SWAP;SET_CAR}{};DUP;CDAAR;DIP{DUP;CAR;DIP{DUP;CDADAR};ADD;SOME};DIIP{DUP;CDDDAR};UPDATE;SWAP;SET_CDDDAR;DUP;CDADDR;IF_NONE{PUSH bool False}{DROP;PUSH bool True};DIP{PUSH bool True};COMPARE;EQ;IF{DUP;CDADDR;IF_NONE{PUSH string "Optional value is empty";FAILWITH}{};DIP{DUP;CDADAR};SWAP;PAIR;DIP{SENDER};SWAP;PAIR;DIP{PUSH mutez 0};DIIP{DUP;CDAAR;CONTRACT (pair address (pair mutez bytes));IF_NONE{PUSH string "Invalid contract";FAILWITH}{}};TRANSFER_TOKENS;DIP{DUP;CDDAR};CONS;SWAP;SET_CDDAR}{};CDDR}{DROP;PUSH nat 400;FAILWITH}}
+</pre>
+                    </div>
+                </div>
+          </div>
+          <div id="about" aria-labelledby="about-tab" class="tab-pane fade show" role="tabpanel">
+            <div class="row justify-content-md-center">
+              <div class="col-md-12">
+                <p><strong>ꜩtoken</strong> is an implentation of the ERC20 token used by ethereum, and is written in fi (the high-level language developed by TezTech Labs). Check us out on <a href="https://github.com/TezTech" target="_blank">Github</a> or follow us on <a href="https://twitter.com/TezTechLabs" target="_blank">Twitter</a>.</p>
+                <p><strong>ꜩtoken</strong> is a working standard that can be used by anyone, and has similar features to the ERC20 and ERC223 contracts (namely being able to send tokens to smart contracts).</p>
+                <p>Other tools we are working on include:</p>
+                <ul>
+                  <li><a href="http://tezbox.github.io" target="_blank">TezBox</a> - multi-platform Tezos wallet, with a MetaMask like chrome plugin as well as mobile, desktop and web implemntations in development</li>
+                  <li><a href="https://github.com/TezTech/eztz/blob/master/README.md" target="_blank">eztz.js</a> - powerful web3-inspired JS library which integrates with the chain</li>
+                  <li><a href="https://fi-code.com" target="_blank">fi</a> - currently in alpha, an interpreted language that compiles to valid Michelson (which was used to develop this Token Contract)</li>
+                  <li>TezRPC - a load-balanced Tezos RPC proxy service currently used by my tools and the community</li>
+                  <li><a href="https://bakechain.github.io" target="_blank">BakeChain</a> - a GUI tezos baker that allows users to solo-bake from home without needing to compile the native tezos-node.</li>
+                  <li>Velos - a layer-2 transaction scaling system</li>
+                  <li><a href="https://tezvote.com/" target="_blank">TezVote</a> - an on-chain vote signalling tool for delegators and delegation services.</li>
+                  <li>and more...</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row footer">
+        <div class="col-md-12">
+        Developed by TezTech Labs
+        </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    <script src="ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="./eztz.min.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
