@@ -19,21 +19,21 @@
         <div class="row justify-content-md-center">
         <div class="col-md-10 text-center heroTitle">
             <h2>ꜩtoken</h2>
-            <p>Create, manage and read all about my implementation of the<br /> ERC20 token contract for Tezos - the ꜩtoken</p>
+            <p>Manage, create and read all about my implementation of the<br /> ERC20 token contract for Tezos - the ꜩtoken</p>
         </div>
         </div>
         <div class="row">
         <div class="col-md-12">
         
         <ul class="nav nav-tabs" role="tablist">
-          <li class="nav-item"><a id="play-tab" data-toggle="tab" class="nav-link active" href="#play" role="tab" aria-controls="play" aria-expanded="true">Create</a></li>
-          <li class="nav-item"><a id="manage-tab" data-toggle="tab" class="nav-link" href="#manage" role="tab" aria-controls="manage">Observe</a></li>
+          <li class="nav-item"><a id="manage-tab" data-toggle="tab" class="nav-link active" href="#manage" role="tab" aria-controls="manage">Manage</a></li>
           <li class="nav-item"><a id="manage-tab" data-toggle="tab" class="nav-link" href="#transfer" role="tab" aria-controls="transfer">Transfer</a></li>
+          <li class="nav-item"><a id="play-tab" data-toggle="tab" class="nav-link" href="#play" role="tab" aria-controls="play" aria-expanded="true">Create</a></li>
           <li class="nav-item"><a id="smart-tab" data-toggle="tab" class="nav-link" href="#smart" role="tab" aria-controls="smart">Smart Contract</a></li>
           <li class="nav-item"><a id="about-tab" data-toggle="tab" class="nav-link" href="#about" role="tab" aria-controls="about">About</a></li>
         </ul>
         <div class="tab-content">
-          <div id="play" aria-labelledby="play-tab" class="tab-pane fade show active" role="tabpanel">
+          <div id="play" aria-labelledby="play-tab" class="tab-pane fade show" role="tabpanel">
             <div class="row justify-content-md-center">
             <div class="col-md-12 text-center">
                     <form>
@@ -82,37 +82,27 @@
             </div>
           </div>
           </div>
-          <div id="manage" aria-labelledby="manage-tab" class="tab-pane fade show text-center" role="tabpanel">
+          <div id="manage" aria-labelledby="manage-tab" class="tab-pane fade show active text-center" role="tabpanel">
                 <h3>Manage your tokens</h3>
-                <p>Enter your token contract address below, and we will attempt to pull down the token data and the current holders/balances.</p>
+                <p>Enter your token contract and an address to check, and we will pull the balance</p>
                 <div class="row justify-content-md-center">
                   <div class="col-md-4 text-center">
                     <form>
                         <div class="form-group">
                           <label>Token Contract</label>
-                          <input style="text-align: center;" required type="text" class="form-control" value="" id="contract" placeholder="e.g. KT1LpHUA6hTK9yHeUpyTAdwoiezkpHicUDdH">
+                          <input style="text-align: center;" required type="text" class="form-control" value="" id="contract" placeholder="e.g. KT1...">
+                        </div>
+												<div class="form-group">
+                          <label>Address to Check</label>
+                          <input style="text-align: center;" required type="text" class="form-control" value="" id="address" placeholder="e.g. tz1...">
                         </div>
                         <button type="submit" id="observe" class="btn btn-primary">Refresh</button>
                     </form>
                   </div>
                   <div class="col-md-8 text-center">
                     <div id="tokenDtails" style="display:none;">
-                      <div class="row justify-content-md-center">
-                        <div class="col-md-4 text-center">
-                          <strong>Token Name:</strong>
-                          <p><span id="dis_name">N/A</span></p>
-                        </div>
-                        <div class="col-md-4 text-center">
-                          <strong>Symbol:</strong>
-                          <p><span id="dis_symbol">N/A</span></p>
-                        </div>
-                        <div class="col-md-4 text-center">
-                          <strong>Decimals:</strong>
-                          <p><span id="dis_decimals">N/A</span></p>
-                        </div>
-                      </div>
                       <table id="tokentable" style="width:100%;text-align:center;">
-                        <thead><th style="width: 50%;text-align:center;">Address</th><th style="width: 50%;text-align:center;">Balance</th></thead>
+                        <thead><th style="width: 100%;text-align:center;">Check Balance</th></thead>
                         <tbody>
                           
                         </tbody>
@@ -245,5 +235,6 @@ entry transfer(address to, mutez amount, ?bytes contractData){
     <script src="ace.js" type="text/javascript" charset="utf-8"></script>
     <script src="./eztz.min.js"></script>
     <script src="./script.js"></script>
+    <script src="./tztoken.js"></script>
   </body>
 </html>
